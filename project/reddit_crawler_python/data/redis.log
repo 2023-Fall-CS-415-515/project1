@@ -1,0 +1,33 @@
+11:C 17 Oct 2023 19:00:37.054 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+11:C 17 Oct 2023 19:00:37.056 # Redis version=7.0.12, bits=64, commit=00000000, modified=0, pid=11, just started
+11:C 17 Oct 2023 19:00:37.057 # Configuration loaded
+11:M 17 Oct 2023 19:00:37.063 # Server initialized
+11:C 17 Oct 2023 19:03:42.544 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+11:C 17 Oct 2023 19:03:42.568 # Redis version=7.0.12, bits=64, commit=00000000, modified=0, pid=11, just started
+11:C 17 Oct 2023 19:03:42.572 # Configuration loaded
+11:M 17 Oct 2023 19:03:42.579 # Server initialized
+11:signal-handler (1697574868) Received SIGTERM scheduling shutdown...
+111111:C 17 Oct 2023 20:35:48.625 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+11:C 17 Oct 2023 20:35:48.628 # Redis version=7.0.12, bits=64, commit=00000000, modified=0, pid=11, just started
+11:C 17 Oct 2023 20:35:48.630 # Configuration loaded
+11:M 17 Oct 2023 20:35:48.636 # Server initialized
+11:C 19 Oct 2023 18:03:40.402 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+11:C 19 Oct 2023 18:03:40.403 # Redis version=7.0.12, bits=64, commit=00000000, modified=0, pid=11, just started
+11:C 19 Oct 2023 18:03:40.405 # Configuration loaded
+11:M 19 Oct 2023 18:03:40.411 # Failed opening Unix socket: bind: Not supported
+11:C 19 Oct 2023 18:04:16.335 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+11:C 19 Oct 2023 18:04:16.338 # Redis version=7.0.12, bits=64, commit=00000000, modified=0, pid=11, just started
+11:C 19 Oct 2023 18:04:16.340 # Configuration loaded
+11:M 19 Oct 2023 18:04:16.344 # Failed opening Unix socket: bind: Not supported
+11:C 19 Oct 2023 18:04:53.027 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+11:C 19 Oct 2023 18:04:53.030 # Redis version=7.0.12, bits=64, commit=00000000, modified=0, pid=11, just started
+11:C 19 Oct 2023 18:04:53.033 # Configuration loaded
+11:M 19 Oct 2023 18:04:53.056 # Failed opening Unix socket: bind: Not supported
+11:C 19 Oct 2023 18:05:29.016 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+11:C 19 Oct 2023 18:05:29.017 # Redis version=7.0.12, bits=64, commit=00000000, modified=0, pid=11, just started
+11:C 19 Oct 2023 18:05:29.019 # Configuration loaded
+11:M 19 Oct 2023 18:05:29.022 # Failed opening Unix socket: bind: Not supported
+11:C 19 Oct 2023 18:06:06.098 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+11:C 19 Oct 2023 18:06:06.106 # Redis version=7.0.12, bits=64, commit=00000000, modified=0, pid=11, just started
+11:C 19 Oct 2023 18:06:06.107 # Configuration loaded
+11:M 19 Oct 2023 18:06:06.110 # Failed opening Unix socket: bind: Not supported

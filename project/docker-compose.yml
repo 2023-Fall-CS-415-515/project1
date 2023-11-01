@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_PASSWORD: testpassword
+      POSTGRES_DB: postgres
+      POSTGRES_LISTEN_ADDRESS: "0.0.0.0"
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  faktory:
+    image: contribsys/faktory:latest
+    ports:
+      - "7419:7419"
+      - "7420:7420"
+    volumes:
+      - faktorydata:/var/lib/faktory
+
+  reddit_crawler:
+    build: ./reddit_crawler_python
+    environment:
+      DB_HOST: postgres
+      FAKTORY_URL: tcp://faktory:7419
+    depends_on:
+      - postgres
+      - faktory
+    
+  chan_crawler:
+    build: ./chan-crawler-python
+    environment:
+      DB_HOST: postgres
+      FAKTORY_URL: tcp://faktory:7419
+    depends_on:
+      - postgres
+      - faktory
+
+volumes:
+  pgdata:
+  faktorydata:

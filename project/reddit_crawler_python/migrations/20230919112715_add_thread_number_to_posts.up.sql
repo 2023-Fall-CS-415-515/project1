@@ -1,0 +1,2 @@
+-- Add up migration script here
+-- ALTER TABLE posts ADD COLUMN post_number VARCHAR(16) NOT NULL;
