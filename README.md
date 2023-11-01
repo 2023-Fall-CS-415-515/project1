@@ -9,11 +9,15 @@ for any additional offense of any kind.”
 Distribution of work:
 
 Developing code: everybody
+
 Running docker locally: Dillon
+
 Creating visuals: Anna and Adi
+
 Writing report: everybody
 
 Running the code on the VM:
+
 sudo docker-compose up --build
 
 As of right now, there is an issue with the docker deployment between the postgres database connecting with each of the crawlers.
