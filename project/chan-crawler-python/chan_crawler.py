@@ -31,36 +31,34 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
                     level=logging.INFO,
                     datefmt='%Y-%m-%d %H:%M:%S')
 
+''' Find thread numbers in a given catalog '''
 def thread_numbers_from_catalog(catalog):
     thread_numbers = set()
 
     for page in catalog:
         page_number = page["page"]
-        #logging.debug(f'Getting thread numbers in catalog page number {page_number}')
         
         # now let's get thread numbers
         for thread in page["threads"]:
             thread_number = thread["no"]
-            #logging.debug(f'Found thread {thread_number}')
 
             thread_numbers.add(thread_number)
 
     return thread_numbers
 
+''' Find the threads that have died since the last run '''
 def find_dead_threads(old_thread_numbers, new_thread_numbers):
     dead_threads = old_thread_numbers.difference(new_thread_numbers)
     return dead_threads
 
+''' Crawl a thread and add it to the database if desired '''
 def crawl_thread(board, thread_number, last_modified=None):
     client = Client()
     thread = client.get_thread(board, thread_number, last_modified)
-    #print('crawl-thread')
 
     if not thread:  # This means data hasn't changed
         logging.info(f'/{board}/{thread_number} has not been modified since {last_modified}')
         return
-
-    #logging.info(f'/{board}/{thread_number}: {thread}')
 
     # We really want to have a connection pool!
     # check psycopg docs!!
@@ -101,7 +99,7 @@ def crawl_thread(board, thread_number, last_modified=None):
     # again, we really want to be using a connection pool
     conn.close()
 
-
+''' Look through the catalog to see if any threads have died, queue them as new jobs '''
 def crawl_catalog(board, old_thread_numbers=[], last_modified=None):
     # make a new 4chan client
     client = Client()

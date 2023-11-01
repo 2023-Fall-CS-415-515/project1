@@ -17,6 +17,7 @@ FAKTORY_URL = os.environ.get('FAKTORY_URL')
 client = Client()
 client.setup_OAuth()
 
+# list of keywords used
 keywords = [
     '2a', 'self defense', 'murica', 'progun', 'constitutional right', 'patriot', 'maga', 'bubba', 'come and take them',
     'shall not be infringed'
@@ -26,33 +27,25 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
                     level=logging.INFO,
                     datefmt='%Y-%m-%d %H:%M:%S')
 
+''' Retrieve the post ids from a given subreddit '''
 def get_post_ids_from_subreddit(subreddit_data):
     post_ids = set()
-    for post in subreddit_data:#["data"]["children"]:
+    for post in subreddit_data:
         post_ids.add(post["data"]["id"])
     return post_ids
 
-
+''' Get a certain post from a given subreddit and add them to the database if needed '''
 def crawl_post_and_comments(subreddit, post_id):
-    #client = Client()
-    #post_data = json.dumps(client.get_post(subreddit, post_id)[0]['data']['selftext'].lower())
-    #logging.info(f'{post_id}')
 
     post = client.get_post(subreddit, post_id)
     post_data = post[0]['data']['children'][0]
     comment_data = post[1]['data']['children']
 
     post_title = post_data['data']['title']
-    #logging.info(f'{post_title}')
     post_content = post_data['data']['selftext']
     created_utc = post_data['data']['created_utc']
 
     post_creation_date = datetime.utcfromtimestamp(created_utc)
-
-    #post_data = client.get_post(subreddit, post_id)[0]['data']['selftext'].lower()
-
-    #comment_data = client.get_comments(subreddit, post_id)
-
 
     # We really want to have a connection pool!
     # check psycopg docs!!
@@ -62,24 +55,7 @@ def crawl_post_and_comments(subreddit, post_id):
     )
 
     cur = conn.cursor()
-    
-    '''
-    # we want to use named parameters; check psycopg2 docs.
-    sql = "INSERT INTO posts (subreddit, post_id, data) VALUES (%s, %s, %s) RETURNING id"
-    cur.execute(sql, (subreddit, post_id, post_data))
 
-            
-    # _commit_ our transaction so that it's actually persisted
-    # to the db
-    conn.commit()
-
-    # it's often useful to know the id of the newly inserted
-    # row. This is so you can launch other jobs that might
-    # do additional processing.
-    # e.g., to classify the toxicity of a post
-    db_id = cur.fetchone()[0]
-    logging.info(f'Inserted DB id: {db_id}')
-    '''
     cur.execute("SELECT 1 FROM posts WHERE post_id = %s", (post_id,))
     if not cur.fetchone():
         if subreddit == "gundeals" or any(word in post_content.lower() for word in keywords):
@@ -135,14 +111,12 @@ def crawl_post_and_comments(subreddit, post_id):
     # again, we really want to be using a connection pool
     conn.close()
 
+''' Crawl through the given subreddit to find the new post ids and queue the jobs to faktory '''
 def crawl_subreddit(subreddit, old_post_ids=[]):
-    #client = Client()
     subreddit_data = client.get_subreddit(subreddit, 100)
     new_post_ids = get_post_ids_from_subreddit(subreddit_data)
-    #print(len(new_post_ids))
-
-    #new_posts = find_new_posts(set(old_post_ids), new_post_ids)
-    for new_post_id in new_post_ids:#s:
+    
+    for new_post_id in new_post_ids:
         with faktory.connection(FAKTORY_URL) as faktory_client:
             time.sleep(1.5)
             logging.info(f'Rate limit remaining: {client.rate_limit_remaining}')
